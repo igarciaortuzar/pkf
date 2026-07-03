@@ -3,7 +3,17 @@
 > Registro único de reglas de negocio del proyecto. Ver formato en `CONVENTIONS.md`.
 > Este archivo solo se modifica con instrucción explícita del dueño del proyecto (P2 de AGENTS.md).
 
-**Próximo número disponible:** 001
+**Próximo número disponible:** 002
+
+---
+
+### RN-001 — Umbral mínimo de aprobación
+
+**Estado:** vigente
+**Regla:** un curso se considera aprobado con nota ≥ 70%.
+**Origen:** decisión interna, julio 2026.
+**Historial:**
+- 2026-07-03 — creada.
 
 ---
 
