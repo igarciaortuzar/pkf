@@ -20,4 +20,12 @@ Una que se repite en dos proyectos distintos, casi seguro que sí.
 
 ---
 
-*(sin entradas aún)*
+### 2026-07-03 — Power BI no puede leer docs/business-rules.md
+**Proyecto:** PKF v0.1.
+**Qué pasó:** se necesita mostrar las reglas de negocio (RN-xxx) en un dashboard de
+Power BI, pero `Web.Contents` no parsea Markdown. Se resolvió con un export
+generado a JSON (`tools/export_business_rules.py` → `docs/business-rules.json`),
+ver ADR-002.
+**Frecuencia:** primera vez.
+**Solución candidata:** export JSON derivado, generado por script, markdown sigue
+siendo la fuente de verdad.
