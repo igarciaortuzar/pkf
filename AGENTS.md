@@ -31,7 +31,7 @@ Ordenados por prioridad; ante conflicto, gana el de número menor.
 
 - **P1 — Divergencia:** si docs y código (o dos documentos) se contradicen, detente, repórtalo, propón cuál versión parece correcta y espera confirmación. No elijas una versión en silencio.
 - **P2 — RN protegidas:** las reglas de `docs/business-rules.md` (RN-xxx) solo se crean o modifican con instrucción explícita del dueño. Si una tarea implica cambiar una RN, decláralo antes de tocar código.
-- **P3 — Decisiones quedan escritas:** toda decisión técnica no trivial (librería, estructura de datos, integración externa, trade-off de diseño) se registra como ADR en `docs/adr/`, como parte del entregable.
+- **P3 — Decisiones quedan escritas:** toda decisión técnica no trivial (librería, estructura de datos, integración externa, trade-off de diseño) se registra como ADR en `docs/adr/` usando la plantilla, como parte del entregable.
 - **P4 — Docs y código viajan juntos:** un cambio que altera comportamiento, estructura o interfaz actualiza en el mismo commit los documentos afectados.
 - **P5 — No se borra historia:** lo obsoleto se marca (fecha + reemplazo), nunca se elimina. Los ADR aceptados no se editan; uno nuevo reemplaza al anterior.
 - **P6 — Referencias estables:** cita RN-xxx/ADR-xxx por su ID real, nunca por paráfrasis. Corre `python tools/check_refs.py` antes de cerrar una tarea que agregó o referenció IDs, y corrige lo que reporte.
