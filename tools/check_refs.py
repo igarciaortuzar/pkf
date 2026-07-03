@@ -16,6 +16,9 @@ import re
 import sys
 from pathlib import Path
 
+if sys.stdout.encoding.lower() != "utf-8":
+    sys.stdout.reconfigure(encoding="utf-8")
+
 ROOT = Path(__file__).resolve().parent.parent
 RN_DEF = re.compile(r"^###\s+(RN-\d{3})\b", re.MULTILINE)
 RN_REF = re.compile(r"\b(RN-\d{3})\b")
