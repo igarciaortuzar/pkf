@@ -4,8 +4,6 @@
 > en este proyecto. Este archivo sigue el estándar AGENTS.md (https://agents.md).
 > Léelo completo antes de hacer cualquier cambio.
 
----
-
 ## 1. Qué es este proyecto
 
 <!-- PLANTILLA: reemplazar al inicializar un proyecto nuevo -->
@@ -29,64 +27,42 @@
 
 ## 3. Principios de colaboración
 
-Estos principios están ordenados por prioridad. Ante conflicto, gana el de número menor.
+Ordenados por prioridad; ante conflicto, gana el de número menor.
 
-**P1 — Regla de divergencia.** Si detectas una inconsistencia entre la documentación y
-el código (o entre dos documentos), **detente**: no implementes sobre la inconsistencia.
-Repórtala, propón cuál de las dos versiones parece correcta y espera confirmación.
-Ninguno de los dos "prevalece" por defecto; la divergencia se reconcilia, no se ignora.
-
-**P2 — Reglas de negocio protegidas.** Las reglas registradas en
-`docs/business-rules.md` (RN-xxx) solo se crean o modifican con instrucción explícita
-del dueño del proyecto. Si una tarea implica cambiar una RN, decláralo antes de tocar código.
-
-**P3 — Decisiones quedan escritas.** Toda decisión técnica con consecuencias no triviales
-(elección de librería, cambio de estructura de datos, integración externa, trade-off de
-diseño) se registra como ADR en `docs/adr/` usando la plantilla. Si tomaste una decisión
-así durante una tarea, el ADR es parte del entregable, no un opcional.
-
-**P4 — Documentación y código viajan juntos.** Todo cambio de código que altere
-comportamiento, estructura o interfaz incluye la actualización de los documentos
-afectados **en el mismo cambio**. Un cambio que deja la documentación obsoleta
-está incompleto.
-
-**P5 — No se borra historia.** La información superada se marca como obsoleta
-(con fecha y referencia a lo que la reemplaza), no se elimina. Los ADR nunca se
-editan una vez aceptados: se escribe un ADR nuevo que los reemplaza.
-
-**P6 — Referencias estables.** Al citar una regla de negocio o una decisión, usa su ID
-(`RN-xxx`, `ADR-xxx` con su número real), no una paráfrasis. Antes de cerrar una tarea que agregó o
-referenció IDs, ejecuta `python tools/check_refs.py` y corrige lo que reporte.
+- **P1 — Divergencia:** si docs y código (o dos documentos) se contradicen, detente, repórtalo, propón cuál versión parece correcta y espera confirmación. No elijas una versión en silencio.
+- **P2 — RN protegidas:** las reglas de `docs/business-rules.md` (RN-xxx) solo se crean o modifican con instrucción explícita del dueño. Si una tarea implica cambiar una RN, decláralo antes de tocar código.
+- **P3 — Decisiones quedan escritas:** toda decisión técnica no trivial (librería, estructura de datos, integración externa, trade-off de diseño) se registra como ADR en `docs/adr/`, como parte del entregable.
+- **P4 — Docs y código viajan juntos:** un cambio que altera comportamiento, estructura o interfaz actualiza en el mismo commit los documentos afectados.
+- **P5 — No se borra historia:** lo obsoleto se marca (fecha + reemplazo), nunca se elimina. Los ADR aceptados no se editan; uno nuevo reemplaza al anterior.
+- **P6 — Referencias estables:** cita RN-xxx/ADR-xxx por su ID real, nunca por paráfrasis. Corre `python tools/check_refs.py` antes de cerrar una tarea que agregó o referenció IDs, y corrige lo que reporte.
 
 ## 4. Rutas según tamaño del cambio
 
-No todo cambio requiere el mismo proceso. Clasifica antes de empezar:
-
 | Tipo | Ejemplos | Proceso |
 |---|---|---|
-| **Trivial** | Typo, formato, comentario, rename local | Hazlo directo. Sin ceremonia. |
+| **Trivial** | Typo, formato, comentario, rename local | Hazlo directo, sin ceremonia. |
 | **Normal** | Nueva función, fix de bug, ajuste de lógica | Código + docs afectados juntos (P4). |
 | **Estructural** | Nueva entidad, cambio de RN, nueva integración, decisión de arquitectura | Primero ADR o actualización de RN, luego implementación. |
 
-Si dudas entre dos categorías, pregunta o asume la más exigente.
+Si dudas entre dos categorías, asume la más exigente.
 
 ## 5. Qué nunca debe hacer una IA en este proyecto
 
 - Inventar el contenido de un archivo que no pudo leer.
 - Modificar `AGENTS.md`, `docs/business-rules.md` o ADRs aceptados sin instrucción explícita.
-- Resolver una inconsistencia "eligiendo en silencio" una de las versiones (viola P1).
+- Resolver una inconsistencia eligiendo en silencio una versión (viola P1).
 - Eliminar información histórica en vez de marcarla obsoleta (viola P5).
 - Introducir dependencias, servicios externos o credenciales sin declararlo.
+- Guardar cambios a `AGENTS.md` sin mostrarlos antes como diff, incluso con instrucción explícita, dado su rol de gobernar el resto del proyecto.
 
 ## 6. Cómo empezar una sesión de trabajo
 
-1. Lee este archivo.
-2. Lee `README.md` para el contexto general.
-3. Lee los documentos de `docs/` relevantes a la tarea (el índice está en `docs/CONVENTIONS.md`).
-4. Recién entonces, toca código.
+1. Lee este archivo, luego `README.md`.
+2. Lee lo relevante de `docs/` (índice en `docs/CONVENTIONS.md`).
+3. Recién entonces, toca código.
 
 ---
 
-*Este proyecto usa PKF (Project Knowledge Framework) v0.1.*
-*El framework crece por extracción: si una sesión de trabajo revela fricción real,
-anótala en `docs/friction-log.md` en vez de improvisar una solución estructural.*
+*Este proyecto usa PKF (Project Knowledge Framework) v0.1. El framework crece por
+extracción: si una sesión revela fricción real, anótala en `docs/friction-log.md`
+en vez de improvisar una solución estructural.*
