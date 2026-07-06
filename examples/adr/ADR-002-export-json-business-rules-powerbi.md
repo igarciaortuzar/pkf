@@ -1,7 +1,7 @@
 # ADR-002 — Exportar business-rules.md a JSON para consumo desde Power BI
 
 **Fecha:** 2026-07-03
-**Estado:** aceptada
+**Estado:** ejemplo ilustrativo (no vigente en este proyecto)
 
 ## Contexto
 
