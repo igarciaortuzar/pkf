@@ -19,11 +19,19 @@ from pathlib import Path
 if sys.stdout.encoding.lower() != "utf-8":
     sys.stdout.reconfigure(encoding="utf-8")
 
-ROOT = Path(__file__).resolve().parent.parent
+def find_root() -> Path:
+    current = Path(__file__).resolve().parent
+    for parent in [current] + list(current.parents):
+        if (parent / ".git").exists() or (parent / "AGENTS.md").exists():
+            return parent
+    return current
+
+
+ROOT = find_root()
 RN_DEF = re.compile(r"^###\s+(RN-\d{3})\b", re.MULTILINE)
 RN_REF = re.compile(r"\b(RN-\d{3})\b")
 ADR_REF = re.compile(r"\b(ADR-\d{3})\b")
-SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", "venv", "examples", "testing"}
+SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", "venv", "examples", "testing", ".claude", ".vscode"}
 TEXT_EXT = {".md", ".py", ".yaml", ".yml", ".json", ".txt", ".sql", ".js", ".ts"}
 
 
@@ -69,13 +77,13 @@ def main() -> int:
 
     # 1. RN referenciadas pero no definidas
     for rn, files in sorted(referenced_rn.items()):
-        if rn not in defined_rn_set and str(br.relative_to(ROOT)) not in files[:0]:
-            # una RN "referenciada" solo dentro de business-rules.md es su propia definición
-            non_def_files = [x for x in files if x != "docs/business-rules.md"] or (
-                [] if rn in defined_rn_set else files
-            )
-            if rn not in defined_rn_set and non_def_files:
-                errors.append(f"{rn} referenciada pero no definida — en: {', '.join(sorted(set(non_def_files)))}")
+        if rn in defined_rn_set:
+            continue
+        non_mention_only_in_rules_file = [x for x in files if x != "docs/business-rules.md"]
+        # si la única mención está en business-rules.md pero no está definida
+        # ahí como "### RN-xxx", igual es un error (RN mal formada)
+        reportable_files = non_mention_only_in_rules_file or files
+        errors.append(f"{rn} referenciada pero no definida — en: {', '.join(sorted(set(reportable_files)))}")
 
     # 2. ADR referenciados pero inexistentes
     for adr, files in sorted(referenced_adr.items()):
