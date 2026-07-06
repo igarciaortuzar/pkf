@@ -8,7 +8,8 @@
 | `business-rules.md` | Registro único de reglas de negocio (RN-xxx). |
 | `adr/` | Decisiones de arquitectura, una por archivo. |
 | `friction-log.md` | Bitácora de fricciones del framework (alimenta futuras versiones de PKF). |
-| `business-rules.json` | Export generado de `business-rules.md` (ver ADR-002). No editar a mano; regenerar con `python tools/export_business_rules.py`. |
+| `examples/` | Patrones de referencia ilustrativos (ej. ADRs de ejemplo). No son reglas ni decisiones vigentes en este proyecto. |
+| `testing/` | Protocolos de validación del framework mismo (no del proyecto de negocio). |
 
 Cuando se agregue un documento nuevo a `docs/`, se registra en esta tabla.
 Un documento que no está en el índice no existe para efectos del proyecto.
