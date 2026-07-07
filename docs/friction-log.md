@@ -45,3 +45,21 @@ comparar línea por línea contra la fuente original en cada caso.
 **Solución candidata:** evaluar extender la regla de "mostrar diff antes de
 guardar" (agregada en sección 5 para AGENTS.md) a otros archivos de alto
 impacto — business-rules.md, ADRs aceptados.
+
+---
+
+### 2026-07-07 — Herramientas defensivas no prevén stdout mockeado
+**Proyecto:** PKF v0.1.
+**Qué pasó:** al crear simulaciones para probar check_refs.py y el hook de
+fricciones con stdout.encoding = None (caso común en CI/CD, pipelines de
+redirección, o testing con output capturado), check_refs.py crasheó sin
+previo aviso: `AttributeError: 'NoneType' object has no attribute 'lower()'`.
+Esto descubrió una brecha defensiva: scripts PKF que inspeccionan sys.stdout
+deben anticipar que el objeto stdout puede ser mockeado o manipulado
+(encoding=None, sin método reconfigure(), etc.). El fix fue simple (try/except
++ validación de None), pero el patrón aplica a toda herramienta defensiva
+futura.
+**Frecuencia:** primera vez, pero sistemática (todo script que toque stdout).
+**Solución candidata:** agregar validación defensiva a tools/check_refs.py
+(aplicado); considerar template defensivo en la documentación para futuras
+herramientas que necesiten inspeccionar stdout.

@@ -1,0 +1,1 @@
+{"message":{"content":[{"type":"tool_use","name":"Edit","input":{"file_path":"docs/business-rules.md"}}]}}

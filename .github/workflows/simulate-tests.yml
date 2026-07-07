@@ -1,0 +1,23 @@
+name: Simulated PKF tests
+on:
+  push:
+    branches:
+      - 'test/simulated-hooks-checkrefs'
+
+jobs:
+  simulate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Run check_refs normally
+        run: python tools/check_refs.py || echo "check_refs exit:$?"
+      - name: Run check_refs with fake stdout
+        run: python tests/simulate_check_refs_stdout_none.py || true
+      - name: Run hook positive
+        run: printf '{"transcript_path":"tests/test_transcript.jsonl","stop_hook_active":false}\n' | python .claude/hooks/stop_friction_reminder.py || echo "hook exit:$?"
+      - name: Run hook negative
+        run: printf '{"transcript_path":"tests/test_transcript_negative.jsonl","stop_hook_active":false}\n' | python .claude/hooks/stop_friction_reminder.py || echo "hook exit:$?"
