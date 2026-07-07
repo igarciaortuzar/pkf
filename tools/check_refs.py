@@ -16,8 +16,11 @@ import re
 import sys
 from pathlib import Path
 
-if sys.stdout.encoding.lower() != "utf-8":
-    sys.stdout.reconfigure(encoding="utf-8")
+if sys.stdout.encoding is None or sys.stdout.encoding.lower() != "utf-8":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except (AttributeError, ValueError):
+        pass  # stdout no soporta reconfigure (ej: en tests con stdout mockeado)
 
 def find_root() -> Path:
     current = Path(__file__).resolve().parent
